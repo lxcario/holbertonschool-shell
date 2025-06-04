@@ -1,1 +1,2 @@
--e#!/bin/bash\ngroups
+#!/bin/bash
+groups
