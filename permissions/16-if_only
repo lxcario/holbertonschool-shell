@@ -3,4 +3,3 @@
 if [ -e hello ] && [ "$(stat -c %U hello 2>/dev/null)" = "guillaume" ]; then
   chown vincent hello 2>/dev/null
 fi
-
