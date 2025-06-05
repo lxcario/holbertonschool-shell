@@ -1,5 +1,15 @@
 #!/bin/bash
 
-if [ -e hello ] && [ "$(stat -c %U hello 2>/dev/null)" = "guillaume" ]; then
-  chown vincent hello 2>/dev/null
+# Check if the file 'hello' exists in the current directory
+if [ ! -e hello ]; then
+  echo "File 'hello' does not exist."
+  exit 1
+fi
+
+# Get the owner of the file 'hello'
+owner=$(stat -c %U hello)
+
+# If the owner is 'guillaume', change it to 'vincent'
+if [ "$owner" = "guillaume" ]; then
+  chown vincent hello
 fi
