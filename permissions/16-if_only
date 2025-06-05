@@ -1,15 +1,11 @@
 #!/bin/bash
 
-# Check if the file 'hello' exists in the current directory
-if [ ! -e hello ]; then
-  echo "File 'hello' does not exist."
-  exit 1
-fi
-
-# Get the owner of the file 'hello'
-owner=$(stat -c %U hello)
-
-# If the owner is 'guillaume', change it to 'vincent'
-if [ "$owner" = "guillaume" ]; then
-  chown vincent hello
+# Check if the file 'hello' exists AND if its current owner is 'guillaume'.
+# '[ -e hello ]' checks for file existence.
+# '$(stat -c %U hello 2>/dev/null)' gets the owner, suppressing any errors from stat.
+# The '&&' means both conditions must be true for the 'then' block to execute.
+if [ -e hello ] && [ "$(stat -c %U hello 2>/dev/null)" = "guillaume" ]; then
+  # If both conditions are met, change the owner of 'hello' to 'vincent'.
+  # '2>/dev/null' suppresses any error messages from chown (e.g., if 'vincent' user doesn't exist on the system).
+  chown vincent hello 2>/dev/null
 fi
